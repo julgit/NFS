@@ -43,6 +43,7 @@ server::server(const std::string& address, const std::string& port,
 
   std::cout << "yyy testz 1";
   std::cout << "zzz testz 2";
+  std::cout << "vvv testz 3";
 
   start_accept();
 }
