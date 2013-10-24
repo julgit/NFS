@@ -41,6 +41,8 @@ server::server(const std::string& address, const std::string& port,
   acceptor_.bind(endpoint);
   acceptor_.listen();
 
+  std::cout << "yyy testz 1";
+
   start_accept();
 }
 
