@@ -38,6 +38,7 @@ connection::connection(boost::asio::io_service& io_service,
 	  //acc = new boost::asio::ip::tcp::acceptor(&io_service);
 	  //acc = new boost::asio::ip::tcp::acceptor();
 	  acc_.open(endpoint.protocol());
+	  std::cout << "xxx - master branch";
 	  acc_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
 	  acc_.bind(endpoint);
 	  acc_.listen();
