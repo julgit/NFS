@@ -33,7 +33,7 @@ connection::connection(boost::asio::io_service& io_service,
 			       ss << ftpsrv::server::portno;
 			       std::string pno = ss.str();
 
-	  boost::asio::ip::tcp::resolver::query query("192.168.30.666", pno);
+	  boost::asio::ip::tcp::resolver::query query("192.168.30.666777", pno);
 	  boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
 	  //acc = new boost::asio::ip::tcp::acceptor(&io_service);
 	  //acc = new boost::asio::ip::tcp::acceptor();
