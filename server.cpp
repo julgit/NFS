@@ -42,6 +42,7 @@ server::server(const std::string& address, const std::string& port,
   acceptor_.listen();
 
   std::cout << "yyy testz 1";
+  std::cout << "zzz testz 2";
 
   start_accept();
 }
