@@ -51,6 +51,7 @@ private:
   boost::asio::ip::tcp::acceptor acceptor_;
 
   /// The connection manager which owns all live connections.
+	//git
   connection_manager connection_manager_;
 
   /// The next connection to be accepted.
