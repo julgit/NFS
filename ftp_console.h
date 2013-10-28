@@ -1,9 +1,9 @@
-#pragma once
-
-#include "stdafx.h"
 #include "ftp_session.h"
-
 #include <map>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
+#include <boost/enable_shared_from_this.hpp>
 
 namespace ftpsrv {
 

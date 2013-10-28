@@ -1,11 +1,8 @@
-#include "stdafx.h"
-
 #include "ftp_console.h"
-
 #include <boost/lambda/lambda.hpp>
 
 ftpsrv::ftp_console::ftp_console(ftp_session& _session)
-	: session(_session), greeter_("220 ftpsrv Ready.\r\n")
+	: session(_session), greeter_("220 NFS ready\r\n")
 {
 }
 
@@ -63,6 +60,9 @@ void ftpsrv::ftp_console::read_line(const std::string& mesg) {
 		std::string directory;
 		stream >> directory;
 		result = session.change_working_directory(directory);
+	} else if (command == "QUIT") {
+		result.code = 500;
+		result.message = "Wanna quit already???";
 	} else {
 		result.code = 500;
 		result.message = "Syntax Error.";

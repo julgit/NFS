@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread/thread.hpp>
@@ -22,7 +20,6 @@ int main(int argc, char* argv[])
       return 1;
     }
 
-    ftpsrv::server::portno = 10000;
     ftpsrv::server s(argv[1], argv[2], argv[3]);
 
     s.run();
@@ -30,7 +27,7 @@ int main(int argc, char* argv[])
   }
   catch (std::exception& e)
   {
-    std::cerr << "exception: " << e.what() << "\n";
+    std::cerr << "!Exception!: " << e.what() << "\n";
   }
 
   return 0;

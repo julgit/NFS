@@ -1,21 +1,18 @@
-#include "stdafx.h"
-
 #include "ftp_session.h"
-
 #include <fstream>
-
 #include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 #include "server.h"
 
 using boost::asio::ip::tcp;
 
-ftpsrv::ftp_session::ftp_session(boost::asio::io_service& _service, boost::asio::ip::tcp::socket& socket_, boost::asio::ip::tcp::acceptor& acc_)
-	: io_service(_service), acceptor(0), working_directory("/"), socket(socket_), acceptor_(acc_)
+ftpsrv::ftp_session::ftp_session(boost::asio::io_service& _service, boost::asio::ip::tcp::socket& socket_, boost::asio::ip::tcp::acceptor& acc_,
+		ftpsrv::connection_manager& conn_mgr_, ftpsrv::connection* conn_ptr_)
+	: io_service(_service), working_directory("/"), socket(socket_), acceptor_(acc_), conn_mgr(conn_mgr_), conn_ptr(conn_ptr_)
 {
 }
 
-void ftpsrv::ftp_session::set_root_directory(boost::filesystem::path const& directory) {
+void ftpsrv::ftp_session::set_root_directory(const boost::filesystem::path& directory) {
 	root_directory = directory;
 }
 
@@ -186,6 +183,12 @@ void ftpsrv::ftp_session::retrieve(const std::string& filename, boost::function<
 
 	boost::shared_ptr<file_dumper> dumper = file_dumper::create(cb, io_service, path.make_preferred().string());
 	dumper->async_wait(acceptor_);
+}
+
+ftpsrv::ftp_result ftpsrv::ftp_session::quit ()
+{
+	//conn_mgr.stop(conn);
+	return ftpsrv::ftp_result(221, "Goodbye.");
 }
 
 ftpsrv::ftp_transfer_type ftpsrv::read_transfer_type(std::istream& stream) {

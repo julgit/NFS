@@ -1,41 +1,34 @@
-#pragma once
-
-#include "stdafx.h"
+#ifndef FTP_SESSION_H
+#define FTP_SESSION_H
 #include <boost/filesystem.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
+#include <boost/enable_shared_from_this.hpp>
+#include "ftp_result.h"
+#include "ftp_transfer_type.h"
 
 namespace ftpsrv {
 
-struct ftp_transfer_type {
-    unsigned char type;
-	unsigned char format;
-	unsigned byte_size;
-};
-
 ftp_transfer_type read_transfer_type(std::istream& stream);
 
-struct ftp_result {
-	ftp_result() {
-	}
+class connection;
 
-	ftp_result(unsigned code_, const std::string& message_)
-		: code(code_), message(message_) {
-	}
-
-	unsigned code;
-	std::string message;
-};
+class connection_manager;
 
 class ftp_session {
 	boost::asio::io_service& io_service;
-	boost::asio::ip::tcp::acceptor* acceptor;
+	boost::filesystem::path working_directory;
 	boost::asio::ip::tcp::socket& socket;
 	boost::asio::ip::tcp::acceptor& acceptor_;
-
 	boost::filesystem::path root_directory;
-	boost::filesystem::path working_directory;
+	ftpsrv::connection_manager& conn_mgr;
+	ftpsrv::connection* conn_ptr;
+
 
 public:
-	explicit ftp_session(boost::asio::io_service&, boost::asio::ip::tcp::socket& socket, boost::asio::ip::tcp::acceptor& acc_);
+	explicit ftp_session(boost::asio::io_service&, boost::asio::ip::tcp::socket& socket, boost::asio::ip::tcp::acceptor& acc_,
+			ftpsrv::connection_manager& conn_mgr_, ftpsrv::connection* conn_ptr_);
 
 	void set_root_directory(const boost::filesystem::path& root_directory);
 
@@ -59,3 +52,5 @@ public:
 };
 
 }
+
+#endif

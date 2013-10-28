@@ -1,10 +1,3 @@
-/*
- * connection_manager.h
- *
- *  Created on: 23 paź 2013
- *      Author: root
- */
-
 #ifndef CONNECTION_MANAGER_H_
 #define CONNECTION_MANAGER_H_
 
@@ -14,24 +7,24 @@
 
 namespace ftpsrv {
 
+class connection;
+
+typedef boost::shared_ptr<connection> connection_pt;
+
 class connection_manager
   : private boost::noncopyable
 {
 public:
-  /// Add the specified connection to the manager and start it.
-  void start(connection_ptr c);
 
-  /// Stop the specified connection.
-  void stop(connection_ptr c);
+  void start(connection_pt c);
 
-  /// Stop all connections.
+  void stop(connection_pt c);
+
   void stop_all();
 
-//private:
-  /// The managed connections.
-  std::set<connection_ptr> connections_;
+  std::set<connection_pt> connections_;
 };
 
-} /* namespace ftpsrv */
+}
 
-#endif /* CONNECTION_MANAGER_H_ */
+#endif
