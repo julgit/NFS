@@ -187,7 +187,9 @@ void ftpsrv::ftp_session::retrieve(const std::string& filename, boost::function<
 
 ftpsrv::ftp_result ftpsrv::ftp_session::quit ()
 {
-	//conn_mgr.stop(conn);
+	boost::shared_ptr<connection> shptr_conn(conn_ptr);
+	conn_mgr.stop(shptr_conn);
+	shptr_conn.reset();
 	return ftpsrv::ftp_result(221, "Goodbye.");
 }
 

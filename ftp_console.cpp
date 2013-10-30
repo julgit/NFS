@@ -61,8 +61,9 @@ void ftpsrv::ftp_console::read_line(const std::string& mesg) {
 		stream >> directory;
 		result = session.change_working_directory(directory);
 	} else if (command == "QUIT") {
-		result.code = 500;
-		result.message = "Wanna quit already???";
+		//result.code = 500;
+		//result.message = "Wanna quit already???";
+		result = session.quit();
 	} else {
 		result.code = 500;
 		result.message = "Syntax Error.";
